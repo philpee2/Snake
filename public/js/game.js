@@ -11,26 +11,21 @@
     this.WIDTH = Settings.game.WIDTH;
     this.HEIGHT = Settings.game.HEIGHT;
     
-    // This is the block that the player can currently control. 
     this.snake = new Snake(this);
     this.food = this.placeFood();
-    
-    // The player's current score in the game. 
     this.score = 0;
     
     this.bindKeyHandlers();
-    
-    
   };
   
   Game.speed = Settings.game.speed;
-  Game.DIM_X = 500;
-  Game.DIM_Y = 500;
+  Game.DIM_X = Settings.game.DIM_X;
+  Game.DIM_Y = Settings.game.DIM_Y;
   Game.FOOD_COLOR = Settings.game.FOOD_COLOR;
 
   
   Game.prototype.start = function() {
-    // Begin running the 'step' logic 30 times per second. 
+    // Begin running the 'step' logic 10 times per second. 
     
     var that = this;
     var interval = Math.floor(1000/Game.speed);
@@ -47,7 +42,7 @@
   };
   
   Game.prototype.draw = function() {
-    // Every frame, the canvas is cleared and both the block and grid are redrawn.
+    // Every frame, the canvas is cleared, then the snake and food are re-drawn.
     
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
     this.snake.draw(this.ctx);

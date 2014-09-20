@@ -1,4 +1,7 @@
 (function(root) {
+  // Settings stores game constants. This makes them easy to change in one place, 
+  // and makes them accessible to all other objects. 
+
   var SnakeGame = root.SnakeGame = (root.SnakeGame || {});
   var Settings = SnakeGame.Settings = {
     game: {

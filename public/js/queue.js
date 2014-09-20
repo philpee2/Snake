@@ -1,6 +1,5 @@
 // A simple queue data structure implemented as a singly linked list. 
-// Push, shift, first, and last are all O(1) operations. 
-
+// Push, shift, firstItem, and lastItem are all O(1) operations. 
 
 (function(root) {
   var SnakeGame = root.SnakeGame = (root.SnakeGame || {});
@@ -49,7 +48,6 @@
     }  
   };
   
-  // Applies fn to each item in the queue. 
   Queue.prototype.forEach = function(fn) {
     if (this.isEmpty()) {
       return;
