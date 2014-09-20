@@ -1,7 +1,7 @@
 ## Snake
 
 A browser version of Snake. Game logic is written in Javascript, while HTML canvas
-draws the images. A live version can be found (here)[http://philnachumsnake.herokuapp.com/]
+draws the images. A live version can be found [here](http://philnachumsnake.herokuapp.com/)
 
 Use the arrow keys to move, and P to pause/unpause. 
 
