@@ -2,7 +2,7 @@
   var SnakeGame = root.SnakeGame = (root.SnakeGame || {});
   var Settings = SnakeGame.Settings = {
     game: {
-      FPS: 10,
+      speed: 10,
       DIM_X: 500, 
       DIM_Y: 500, 
       WIDTH: 20,

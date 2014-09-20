@@ -23,7 +23,7 @@
     
   };
   
-  Game.FPS = 5;
+  Game.speed = Settings.game.speed;
   Game.DIM_X = 500;
   Game.DIM_Y = 500;
   Game.FOOD_COLOR = Settings.game.FOOD_COLOR;
@@ -33,7 +33,7 @@
     // Begin running the 'step' logic 30 times per second. 
     
     var that = this;
-    var interval = Math.floor(1000/Game.FPS);
+    var interval = Math.floor(1000/Game.speed);
     this.intervalID = window.setInterval(that.step.bind(that), interval);
   };
   
@@ -118,7 +118,13 @@
     this.food = this.placeFood();
     this.score++; 
     $("#score").html(this.score);
-  }
+  };
+  
+  Game.prototype.outOfBounds = function(pos) {
+    var x = pos[0];
+    var y = pos[1];
+    return (x < 0) || (x >= this.WIDTH) || (y < 0) || (y >= this.HEIGHT);
+  };
   
   
 })(this);

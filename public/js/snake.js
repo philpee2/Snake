@@ -36,12 +36,14 @@
    
     var head = this.head();
     var newHeadPos = head.movedPosition(this.dir);
+    var game = this.game; 
     
     // Convert positions to strings so that equality check works.
-    if (newHeadPos.join() === this.game.food.pos.join()) {
+    if (newHeadPos.join() === game.food.pos.join()) {
       this.cells.push(new Cell(newHeadPos, Snake.COLOR));
       this.game.foodEaten();
-      console.log("eating food");
+    } else if (game.outOfBounds(newHeadPos) || this.contains(newHeadPos)){
+      game.gameOver();
     } else {
       var oldTail = this.cells.shift();
       delete this.positionsHash[oldTail.pos];
