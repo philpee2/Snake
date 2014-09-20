@@ -15,7 +15,7 @@
     
     snake: {
       COLOR: "red",
-      STARTING_POSITIONS: [[10, 8], [10, 9], [10, 10]],
+      STARTING_POSITIONS: [[10, 0], [10, 1], [10, 2]],
       
       OPPOSITE_DIRECTIONS: {
         N: "S",
