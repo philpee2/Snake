@@ -1,7 +1,7 @@
 ## Snake
 
 A browser version of Snake. Game logic is written in Javascript, while HTML canvas
-draws the images. 
+draws the images. A live version can be found (here)[http://philnachumsnake.herokuapp.com/]
 
 Use the arrow keys to move, and P to pause/unpause. 
 
@@ -17,4 +17,4 @@ collides with the edge of the screen, or with itself.
 
 #### Fix fast turning bug
 
-The game is rendered 10 times per second. It's possible to do a U-turn with the snake fast enough so that the reverses its direction before it is rendered. This means that the snake can turn in on itself, which results in losing the game. For example, if the snake is moving upwards, the player can press the left arrow key, and then the down arrow key before the snake renders in its new left direction.  This means the snake will attempt to move downwards, colliding with itself, and thus losing the game.   
+The game is rendered 10 times per second. It's possible to do a U-turn with the snake fast enough so that it reverses its direction before it is rendered. This means that the snake can turn in on itself, which results in losing the game. For example, if the snake is moving upwards, the player can press the left arrow key, and then the down arrow key before the snake renders in its new left direction.  This means the snake will attempt to move downwards, colliding with itself, and thus losing the game.   
