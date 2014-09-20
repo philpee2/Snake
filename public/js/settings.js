@@ -12,7 +12,14 @@
     
     snake: {
       COLOR: "red",
-      STARTING_POSITIONS: [[10, 8], [10, 9], [10, 10]]
+      STARTING_POSITIONS: [[10, 8], [10, 9], [10, 10]],
+      
+      OPPOSITE_DIRECTIONS: {
+        N: "S",
+        S: "N", 
+        E: "W", 
+        W: "E"
+      }
     },
     
     cell: {
@@ -22,8 +29,7 @@
           E: [1, 0],
           S: [0, -1], 
           W: [-1, 0]
-      },
-    
+      }
     }
   };
   

@@ -26,6 +26,7 @@
   
   Snake.COLOR = Settings.snake.COLOR;
   Snake.STARTING_POSITIONS = Settings.snake.STARTING_POSITIONS;
+  Snake.OPPOSITE_DIRECTIONS = Settings.snake.OPPOSITE_DIRECTIONS;
   
   
   // TODO: REFACTOR THIS AND HANDLE FAILURE CASES 
@@ -60,7 +61,12 @@
   }
   
   Snake.prototype.turn = function(newDir) {
-    this.dir = newDir; 
+    
+    // The snake cannot turn into the direction opposite of the one it is
+    // currently moving in. 
+    if (newDir !== Snake.OPPOSITE_DIRECTIONS[this.dir]) {
+      this.dir = newDir; 
+    }
   };
   
   Snake.prototype.draw = function(ctx) {
