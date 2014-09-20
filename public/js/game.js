@@ -11,36 +11,23 @@
     this.WIDTH = Settings.game.WIDTH;
     this.HEIGHT = Settings.game.HEIGHT;
     
-    // The grid is a 2D array containing either nulls, or cell 
-    // objects. It represents
-    // the game's grid of cells. 
-    // this.grid = createEmptyGrid(this.WIDTH, this.HEIGHT);
-    
     // This is the block that the player can currently control. 
-    this.snake = new Snake();
+    this.snake = new Snake(this);
+    this.food = this.placeFood();
     
     // The player's current score in the game. 
     this.score = 0;
     
     this.bindKeyHandlers();
+    
+    
   };
   
   Game.FPS = 5;
   Game.DIM_X = 500;
   Game.DIM_Y = 500;
+  Game.FOOD_COLOR = Settings.game.FOOD_COLOR;
 
-  
-  Game.prototype.getGridItem = function(pos) {
-    return this.grid[pos[1]][pos[0]];
-  };
-  
-  Game.prototype.setGridItem = function(pos, item) {
-    this.grid[pos[1]][pos[0]] = item;
-  };
-  
-  Game.prototype.isEmpty = function(pos) {
-    return this.getGridItem(pos) === null;
-  };
   
   Game.prototype.start = function() {
     // Begin running the 'step' logic 30 times per second. 
@@ -64,10 +51,9 @@
     
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
     this.snake.draw(this.ctx);
+    this.food.draw(this.ctx);
     
   };
-  
-  
   
   Game.prototype.stop = function(){
     clearInterval(this.intervalID);
@@ -113,23 +99,26 @@
 		}
 	};
   
-  Game.prototype.validPosition = function(pos) {
-    var x = pos[0];
-    var y = pos[1];
-    return (x >= 0) && (x < this.WIDTH) && (y >= 0) && (y < this.HEIGHT) 
-      && (this.isEmpty(pos));
+  Game.prototype.placeFood = function() {
+    // Continually pick a random position for food until one is found that the 
+    // snake does not contain.
+    do {
+      var randX = _.random(this.WIDTH - 1);
+      var randY = _.random(this.HEIGHT - 1);
+      var pos = [randX, randY]
+    } while (this.snake.contains(pos))
+    
+    return new Cell(pos, Game.FOOD_COLOR);
+  };
+  
+  
+  Game.prototype.foodEaten = function() {
+    // Place a new food, increment the score, and update it on the page.
+
+    this.food = this.placeFood();
+    this.score++; 
+    $("#score").html(this.score);
   }
   
-  var createEmptyGrid = function(width, height) {
-    var grid = new Array(height);
-    for (var i = 0; i < grid.length; i++) {
-      var row = new Array(width);
-      for (var j = 0; j < row.length; j++) {
-        row[j] = null;
-      }
-      grid[i] = row; 
-    }
-    
-    return grid;
-  };
+  
 })(this);

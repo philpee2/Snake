@@ -7,6 +7,7 @@
       DIM_Y: 500, 
       WIDTH: 20,
       HEIGHT: 20,
+      FOOD_COLOR: "green"
     }, 
     
     snake: {
