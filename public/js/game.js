@@ -56,7 +56,18 @@
   
   Game.prototype.gameOver = function() {
     this.stop();
-    alert("Game Over! Your score is " + this.score);
+    
+    var again = confirm("Game Over! Your score is " + this.score + ". Do you want to play again?");
+    if (again) {
+      this.restart();
+    }
+  };
+  
+  Game.prototype.restart = function() {
+    this.snake = new Snake(this);
+    this.food = this.placeFood();
+    this.score = 0;
+    this.start();
   };
   
   Game.prototype.bindKeyHandlers = function() {

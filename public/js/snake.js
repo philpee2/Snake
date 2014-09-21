@@ -20,6 +20,7 @@
 
 
     var snake = this; 
+    var headPosition;
     Snake.STARTING_POSITIONS.forEach(function(pos) {
       var cell = new Cell(pos, Snake.COLOR);
       snake.cells.push(cell);
@@ -28,8 +29,10 @@
   };
   
   Snake.COLOR = Settings.snake.COLOR;
+  Snake.HEAD_COLOR = Settings.snake.HEAD_COLOR;
   Snake.STARTING_POSITIONS = Settings.snake.STARTING_POSITIONS;
   Snake.OPPOSITE_DIRECTIONS = Settings.snake.OPPOSITE_DIRECTIONS;
+
   
   Snake.prototype.move = function() {
     
