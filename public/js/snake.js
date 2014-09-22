@@ -29,7 +29,6 @@
   };
   
   Snake.COLOR = Settings.snake.COLOR;
-  Snake.HEAD_COLOR = Settings.snake.HEAD_COLOR;
   Snake.STARTING_POSITIONS = Settings.snake.STARTING_POSITIONS;
   Snake.OPPOSITE_DIRECTIONS = Settings.snake.OPPOSITE_DIRECTIONS;
 
@@ -72,12 +71,15 @@
   }
   
   Snake.prototype.turn = function(newDir) {
-    
-    // The snake cannot turn into the direction opposite of the one it is
-    // currently moving in. 
-    if (newDir !== Snake.OPPOSITE_DIRECTIONS[this.dir]) {
-      this.dir = newDir; 
-    }
+    var game = this.game; 
+    // The snake can only turn once per step
+    if (!game.hasTurned)
+      // The snake cannot turn into the direction opposite of the one it is
+      // currently moving in. 
+      if (newDir !== Snake.OPPOSITE_DIRECTIONS[this.dir]) {
+        this.dir = newDir; 
+        game.hasTurned = true;
+      }
   };
   
   

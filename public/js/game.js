@@ -33,6 +33,7 @@
   };
   
   Game.prototype.step = function() {
+    this.hasTurned = false;
     this.move();
     this.draw();
   };
@@ -63,10 +64,13 @@
     }
   };
   
+  
+  
   Game.prototype.restart = function() {
     this.snake = new Snake(this);
     this.food = this.placeFood();
     this.score = 0;
+    $("#score").html(this.score);
     this.start();
   };
   
