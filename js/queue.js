@@ -1,27 +1,27 @@
-// A simple queue data structure implemented as a singly linked list.
-// Push, shift, firstItem, and lastItem are all O(1) operations.
-
-(function(root) {
-  var SnakeGame = root.SnakeGame = (root.SnakeGame || {});
-
-  // The ListNode structure that makes up the Queue.
-  var ListNode = function(item, next) {
+// The ListNode structure that makes up the Queue.
+class ListNode {
+  constructor(item, next) {
     this.item = item;
     this.next = next;
-  };
+  }
+}
 
-  var Queue = SnakeGame.Queue = function() {
+// A simple queue data structure implemented as a singly linked list.
+// Push, shift, firstItem, and lastItem are all O(1) operations.
+class Queue {
+
+  constructor() {
     this.first = null;
     this.last = null;
     this.length = 0;
-  };
+  }
 
-  Queue.prototype.isEmpty = function() {
+  isEmpty() {
     return this.length === 0;
   }
 
-  Queue.prototype.push = function(item) {
-    var newNode = new ListNode(item, null);
+  push(item) {
+    const newNode = new ListNode(item, null);
     if (this.isEmpty()) {
       this.first = newNode;
       this.last = newNode;
@@ -30,13 +30,13 @@
       this.last = newNode;
     }
     this.length++;
-  };
+  }
 
-  Queue.prototype.shift = function() {
+  shift() {
     if (this.isEmpty()) {
       return;
     } else {
-      var firstItem = this.first.item;
+      const firstItem = this.first.item;
       if (this.length === 1) {
         this.first = null;
         this.last = null;
@@ -46,9 +46,9 @@
       this.length--;
       return firstItem;
     }
-  };
+  }
 
-  Queue.prototype.forEach = function(fn) {
+  forEach(fn) {
     if (this.isEmpty()) {
       return;
     }
@@ -59,14 +59,16 @@
       curr = curr.next;
     }
     fn(curr.item)
-  };
+  }
 
-  Queue.prototype.firstItem = function() {
+  firstItem() {
     return this.first.item;
-  };
+  }
 
-  Queue.prototype.lastItem = function() {
+  lastItem() {
     return this.last.item;
-  };
+  }
 
-})(this);
+}
+
+module.exports = Queue;
