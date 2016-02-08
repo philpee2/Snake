@@ -16,8 +16,8 @@ class Cell {
   // Converts an in-game position to a pixel position on the canvas.
   static mapToScreen(pos) {
     const [x, y] = pos;
-    var pixelX = x * Cell.DIMENSION;
-    var pixelY = Settings.game.DIM_Y - ((y + 1) * Cell.DIMENSION);
+    const pixelX = x * Cell.DIMENSION;
+    const pixelY = Settings.game.DIM_Y - ((y + 1) * Cell.DIMENSION);
     return [pixelX, pixelY]
   }
 
@@ -34,13 +34,13 @@ class Cell {
   // Does not actually move the cell.
   movedPosition(dir) {
     const delta = Cell.DIR_DELTAS[dir];
-    return [this.pos[0] + delta[0] , this.pos[1] + delta[1]];
+    return [this.pos[0] + delta[0], this.pos[1] + delta[1]];
   }
 
   draw(ctx) {
-    var pixelPos = Cell.mapToScreen(this.pos);
+    const pixelPos = Cell.mapToScreen(this.pos);
     const [x, y] = pixelPos;
-    var dim = Cell.DIMENSION;
+    const dim = Cell.DIMENSION;
     ctx.fillStyle = this.color;
     ctx.fillRect(x, y, dim, dim);
   }

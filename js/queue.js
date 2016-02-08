@@ -36,7 +36,7 @@ class Queue {
     if (this.isEmpty()) {
       return;
     } else {
-      const firstItem = this.first.item;
+      const firstItem = this.firstItem();
       if (this.length === 1) {
         this.first = null;
         this.last = null;
@@ -58,7 +58,7 @@ class Queue {
       fn(curr.item);
       curr = curr.next;
     }
-    fn(curr.item)
+    fn(curr.item);
   }
 
   firstItem() {

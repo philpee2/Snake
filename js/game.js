@@ -32,14 +32,14 @@ class Game {
 
     this.snake = new Snake(this);
     this.food = this.placeFood();
-    this.score = 0;
+    this.setScore(0);
 
     this.bindKeyHandlers();
   }
 
   start() {
     // Begin running the 'step' logic 10 times per second.
-    var interval = Math.floor(1000/Game.speed);
+    const interval = Math.floor(1000/Game.speed);
     this.intervalID = window.setInterval(this.step.bind(this), interval);
   }
 
@@ -76,8 +76,7 @@ class Game {
   restart() {
     this.snake = new Snake(this);
     this.food = this.placeFood();
-    this.score = 0;
-    $("#score").html(this.score);
+    this.setScore(0);
     this.start();
   }
 
@@ -114,11 +113,16 @@ class Game {
     return new Cell(pos, Game.FOOD_COLOR);
   }
 
+  setScore(score) {
+    this.score = score;
+    $("#score").html(score);
+  }
+
   foodEaten() {
     // Place a new food, increment the score, and update it on the page.
     this.food = this.placeFood();
-    this.score++;
-    $("#score").html(this.score);
+    const newScore = this.score + 1;
+    this.setScore(newScore);
   }
 
   outOfBounds(pos) {
