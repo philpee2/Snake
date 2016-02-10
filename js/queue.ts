@@ -1,6 +1,10 @@
 // The ListNode structure that makes up the Queue.
 class ListNode {
-  constructor(item, next) {
+
+  item : any;
+  next : ListNode;
+
+  constructor(item: any, next: ListNode) {
     this.item = item;
     this.next = next;
   }
@@ -9,6 +13,9 @@ class ListNode {
 // A simple queue data structure implemented as a singly linked list.
 // Push, shift, firstItem, and lastItem are all O(1) operations.
 class Queue {
+  first : ListNode;
+  last : ListNode;
+  length : number;
 
   constructor() {
     this.first = null;
@@ -16,11 +23,11 @@ class Queue {
     this.length = 0;
   }
 
-  isEmpty() {
+  isEmpty(): boolean {
     return this.length === 0;
   }
 
-  push(item) {
+  push(item: any): void {
     const newNode = new ListNode(item, null);
     if (this.isEmpty()) {
       this.first = newNode;
@@ -32,7 +39,7 @@ class Queue {
     this.length++;
   }
 
-  shift() {
+  shift(): any {
     if (this.isEmpty()) {
       return;
     } else {
@@ -48,7 +55,7 @@ class Queue {
     }
   }
 
-  forEach(fn) {
+  forEach(fn): void {
     if (this.isEmpty()) {
       return;
     }
@@ -61,14 +68,14 @@ class Queue {
     fn(curr.item);
   }
 
-  firstItem() {
+  firstItem(): any {
     return this.first.item;
   }
 
-  lastItem() {
+  lastItem(): any {
     return this.last.item;
   }
 
 }
 
-module.exports = Queue;
+export = Queue;

@@ -1,22 +1,16 @@
 module.exports = {
-  context: __dirname,
-  entry: "./app.js",
+  entry: './app.ts',
   output: {
-    path: "./",
-    filename: "bundle.js"
+    filename: 'bundle.js'
+  },
+  resolve: {
+    // Add `.ts` and `.tsx` as a resolvable extension.
+    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
   },
   module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: "babel-loader",
-      query: {
-        presets: ['es2015']
-      }
-    }]
-  },
-  devtool: 'source-map',
-  resolve: {
-    extensions: ["", ".js"]
+    loaders: [
+      // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+      { test: /\.tsx?$/, loader: 'ts-loader' }
+    ]
   }
-};
+}

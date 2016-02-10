@@ -1,23 +1,30 @@
-const Settings = require('./settings'),
-  Cell = require('./cell'),
-  Queue = require('./queue'),
-  _ = require('lodash');
+import Settings = require('./settings');
+import Cell = require('./cell');
+import Queue = require('./queue');
+import Game = require('./game');
+import _ = require('lodash');
+
 
 class Snake {
 
-  static get COLOR() {
+  dir: string;
+  cells: Queue;
+  game: Game;
+  positionsSet: number[][];
+
+  static get COLOR(): string {
     return Settings.snake.COLOR;
   }
 
-  static get STARTING_POSITIONS() {
+  static get STARTING_POSITIONS(): number[][] {
     return Settings.snake.STARTING_POSITIONS;
   }
 
-  static get OPPOSITE_DIRECTIONS() {
+  static get OPPOSITE_DIRECTIONS(): Object {
     return Settings.snake.OPPOSITE_DIRECTIONS;
   }
 
-  constructor(game) {
+  constructor(game: Game) {
     this.dir = "N"; // Direction, can be "N", "E", "S", "W"
 
     // The snake stores its cells in a queue. This allows the tail to be
@@ -28,25 +35,25 @@ class Snake {
     // Storing the positions of the snake as a Set allows you to determine
     // if the snake contains a given position in constant time.
     // TODO: Move this into the Queue structure instead of the Snake object
-    this.positionsSet = new Set();
-
-    for (let pos of Snake.STARTING_POSITIONS) {
-      let cell = new Cell(pos, Snake.COLOR);
+    this.positionsSet = [];
+    let pos: number[];
+    for (pos of Snake.STARTING_POSITIONS) {
+      let cell: Cell = new Cell(pos, Snake.COLOR);
       this.cells.push(cell);
-      this.positionsSet.add(pos);
+      this.positionsSet.push(pos);
     }
   }
 
-  move() {
+  move(): void {
     // The snake moves by shifting off its tail, and assigning this tail cell's
     // position to be where the new head should be. This means that no memory
     // is wasted, since cells are re-used.
 
-    const game = this.game;
+    const game: Game = this.game;
 
-    const head = this.head();
+    const head: Cell = this.head();
     // The position that the new head of the snake will be.
-    const newHeadPos = head.movedPosition(this.dir);
+    const newHeadPos: number[] = head.movedPosition(this.dir);
 
     if (_.isEqual(newHeadPos, game.food.pos)) {
       // If the snake moves over food, create a new cell, rather than shifting the tail.
@@ -56,21 +63,21 @@ class Snake {
       // The game ends when the snake collides with the edge or itself.
       game.gameOver();
     } else {
-      const oldTail = this.cells.shift();
-      this.positionsSet.delete(oldTail.pos);
+      const oldTail: Cell = this.cells.shift();
+      this.positionsSet = _.without(this.positionsSet, oldTail.pos);
       oldTail.setPos(newHeadPos);
       this.cells.push(oldTail);
     }
-    this.positionsSet.add(newHeadPos);
+    this.positionsSet.push(newHeadPos);
   }
 
-  head() {
+  head(): Cell {
     // The head of the snake is always the last cell in the cells queue.
     return this.cells.lastItem();
   }
 
-  turn(newDir) {
-    const game = this.game;
+  turn(newDir: string): void {
+    const game: Game = this.game;
     // The snake can only turn once per step
     if (!game.hasTurned)
       // The snake cannot turn into the direction opposite of the one it is
@@ -81,16 +88,16 @@ class Snake {
       }
   }
 
-  draw(ctx) {
+  draw(ctx): void {
     this.cells.forEach( (cell) => cell.draw(ctx));
   }
 
   // Returns true if the snake contains a cell at pos.
   // Takes constant time thanks to the positions hash instance variable.
-  contains(pos) {
-    return this.positionsSet.has(pos);
+  contains(pos: number[]): boolean {
+    return _.includes(this.positionsSet, pos);
   }
 
 }
 
-module.exports = Snake;
+export = Snake;

@@ -1,25 +1,34 @@
-const Settings = require('./settings'),
-  Snake = require('./snake'),
-  Cell = require('./cell'),
-  _ = require('lodash'),
-  key = require('keymaster'),
-  $ = require('jquery');
+import Settings = require('./settings');
+import Snake = require('./snake');
+import Cell = require('./cell');
+import _ = require('lodash');
+import key = require('keymaster');
+import $ = require('jquery');
 
 class Game {
+  ctx : any;
+  WIDTH : number;
+  HEIGHT : number;
+  food : Cell;
+  intervalID : number;
+  hasTurned : boolean;
+  snake : Snake;
+  paused : boolean;
+  score : number;
 
-  static get speed() {
+  static get speed(): number {
     return Settings.game.speed;
   }
 
-  static get DIM_X() {
+  static get DIM_X(): number {
     return Settings.game.DIM_X;
   }
 
-  static get DIM_Y() {
+  static get DIM_Y(): number {
     return Settings.game.DIM_Y;
   }
 
-  static get FOOD_COLOR() {
+  static get FOOD_COLOR(): string {
     return Settings.game.FOOD_COLOR;
   }
 
@@ -37,50 +46,50 @@ class Game {
     this.bindKeyHandlers();
   }
 
-  start() {
+  start(): void {
     // Begin running the 'step' logic 10 times per second.
-    const interval = Math.floor(1000/Game.speed);
+    const interval: number = Math.floor(1000/Game.speed);
     this.intervalID = window.setInterval(this.step.bind(this), interval);
   }
 
-  step() {
+  step(): void {
     this.hasTurned = false;
     this.move();
     this.draw();
   }
 
-  move() {
+  move(): void {
     this.snake.move();
   }
 
-  draw() {
+  draw(): void {
     // Every frame, the canvas is cleared, then the snake and food are re-drawn.
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
     this.snake.draw(this.ctx);
     this.food.draw(this.ctx);
   }
 
-  stop() {
+  stop(): void {
     clearInterval(this.intervalID);
   }
 
-  gameOver() {
+  gameOver(): void {
     this.stop();
 
-    const again = confirm(`Game Over! Your score is ${this.score}. Do you want to play again?`);
+    const again: boolean = confirm(`Game Over! Your score is ${this.score}. Do you want to play again?`);
     if (again) {
       this.restart();
     }
   }
 
-  restart() {
+  restart(): void {
     this.snake = new Snake(this);
     this.food = this.placeFood();
     this.setScore(0);
     this.start();
   }
 
-  bindKeyHandlers() {
+  bindKeyHandlers(): void {
     key("up", () => this.snake.turn("N"));
     key("down", () => this.snake.turn("S"));
     key("left", () => this.snake.turn("W"));
@@ -89,7 +98,7 @@ class Game {
     key("P", () => this.togglePause());
   }
 
-  togglePause() {
+  togglePause(): void {
     if (this.paused){
       // Unpause
       this.start();
@@ -101,34 +110,34 @@ class Game {
     }
   }
 
-  placeFood() {
+  placeFood(): Cell {
     // Continually pick a random position for food until one is found that the
     // snake does not contain.
     do {
-      let randX = _.random(this.WIDTH - 1);
-      let randY = _.random(this.HEIGHT - 1);
-      var pos = [randX, randY]
+      let randX: number = _.random(this.WIDTH - 1);
+      let randY: number = _.random(this.HEIGHT - 1);
+      var pos: number[] = [randX, randY]
     } while (this.snake.contains(pos))
 
     return new Cell(pos, Game.FOOD_COLOR);
   }
 
-  setScore(score) {
+  setScore(score: number): void {
     this.score = score;
-    $("#score").html(score);
+    $("#score").html(score + '');
   }
 
-  foodEaten() {
+  foodEaten(): void {
     // Place a new food, increment the score, and update it on the page.
     this.food = this.placeFood();
-    const newScore = this.score + 1;
+    const newScore: number = this.score + 1;
     this.setScore(newScore);
   }
 
   outOfBounds(pos) {
-    const [x, y] = pos;
+    const [x, y]: number[] = pos;
     return (x < 0) || (x >= this.WIDTH) || (y < 0) || (y >= this.HEIGHT);
   }
 }
 
-module.exports = Game;
+export = Game;

@@ -1,43 +1,46 @@
-const Settings = require('./settings');
+import Settings = require('./settings');
 
 // The Cell class represents an individual cell on the board. These cells can
 // represent the segments of the snake, or a piece of food. Cells store their
 // position and their color.
 class Cell {
 
-  static get DIMENSION() {
+  pos : number[];
+  color : string;
+
+  static get DIMENSION(): number {
     return 25;
   }
 
-  static get DIR_DELTAS() {
+  static get DIR_DELTAS(): Object {
     return Settings.cell.DIR_DELTAS;
   }
 
   // Converts an in-game position to a pixel position on the canvas.
-  static mapToScreen(pos) {
-    const [x, y] = pos;
-    const pixelX = x * Cell.DIMENSION;
-    const pixelY = Settings.game.DIM_Y - ((y + 1) * Cell.DIMENSION);
-    return [pixelX, pixelY]
+  static mapToScreen(pos: number[]): number[] {
+    const [x, y]: number[] = pos;
+    const pixelX: number = x * Cell.DIMENSION;
+    const pixelY: number = Settings.game.DIM_Y - ((y + 1) * Cell.DIMENSION);
+    return [pixelX, pixelY];
   }
 
-  constructor(pos, color) {
+  constructor(pos: number[], color: string) {
     this.pos = pos;
     this.color = color;
   }
 
-  move(dir) {
+  move(dir: string): void {
     this.pos = this.movedPosition(dir)
   }
 
   // Returns the position the cell would be if it were to move in the given dir.
   // Does not actually move the cell.
-  movedPosition(dir) {
+  movedPosition(dir: string): number[] {
     const delta = Cell.DIR_DELTAS[dir];
     return [this.pos[0] + delta[0], this.pos[1] + delta[1]];
   }
 
-  draw(ctx) {
+  draw(ctx): void {
     const pixelPos = Cell.mapToScreen(this.pos);
     const [x, y] = pixelPos;
     const dim = Cell.DIMENSION;
@@ -45,13 +48,13 @@ class Cell {
     ctx.fillRect(x, y, dim, dim);
   }
 
-  getPos() {
+  getPos(): number[] {
     return this.pos;
   }
 
-  setPos(newPos) {
+  setPos(newPos: number[]): void {
     this.pos = newPos;
   }
 }
 
-module.exports = Cell;
+export = Cell;
