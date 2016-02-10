@@ -6,15 +6,10 @@ import Settings = require('./settings');
 class Cell {
 
   pos : number[];
-  color : string;
+  private color : string;
 
-  static get DIMENSION(): number {
-    return 25;
-  }
-
-  static get DIR_DELTAS(): Object {
-    return Settings.cell.DIR_DELTAS;
-  }
+  static DIMENSION: number = 25;
+  static DIR_DELTAS: Object = Settings.cell.DIR_DELTAS;
 
   // Converts an in-game position to a pixel position on the canvas.
   static mapToScreen(pos: number[]): number[] {
@@ -29,7 +24,7 @@ class Cell {
     this.color = color;
   }
 
-  move(dir: string): void {
+  private move(dir: string): void {
     this.pos = this.movedPosition(dir)
   }
 
@@ -48,7 +43,7 @@ class Cell {
     ctx.fillRect(x, y, dim, dim);
   }
 
-  getPos(): number[] {
+  private getPos(): number[] {
     return this.pos;
   }
 

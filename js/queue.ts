@@ -13,9 +13,9 @@ class ListNode {
 // A simple queue data structure implemented as a singly linked list.
 // Push, shift, firstItem, and lastItem are all O(1) operations.
 class Queue {
-  first : ListNode;
-  last : ListNode;
-  length : number;
+  private first : ListNode;
+  private last : ListNode;
+  private length : number;
 
   constructor() {
     this.first = null;

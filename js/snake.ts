@@ -7,22 +7,14 @@ import _ = require('lodash');
 
 class Snake {
 
-  dir: string;
-  cells: Queue;
-  game: Game;
-  positionsSet: number[][];
+  private dir: string;
+  private cells: Queue;
+  private game: Game;
+  private positionsSet: number[][];
 
-  static get COLOR(): string {
-    return Settings.snake.COLOR;
-  }
-
-  static get STARTING_POSITIONS(): number[][] {
-    return Settings.snake.STARTING_POSITIONS;
-  }
-
-  static get OPPOSITE_DIRECTIONS(): Object {
-    return Settings.snake.OPPOSITE_DIRECTIONS;
-  }
+  static COLOR: string = Settings.snake.COLOR;
+  static STARTING_POSITIONS: number[][] = Settings.snake.STARTING_POSITIONS;
+  static OPPOSITE_DIRECTIONS: Object = Settings.snake.OPPOSITE_DIRECTIONS;
 
   constructor(game: Game) {
     this.dir = "N"; // Direction, can be "N", "E", "S", "W"
@@ -71,7 +63,7 @@ class Snake {
     this.positionsSet.push(newHeadPos);
   }
 
-  head(): Cell {
+  private head(): Cell {
     // The head of the snake is always the last cell in the cells queue.
     return this.cells.lastItem();
   }

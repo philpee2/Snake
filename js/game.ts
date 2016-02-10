@@ -6,31 +6,20 @@ import key = require('keymaster');
 import $ = require('jquery');
 
 class Game {
-  ctx : any;
-  WIDTH : number;
-  HEIGHT : number;
+  private ctx : any;
+  private WIDTH : number;
+  private HEIGHT : number;
   food : Cell;
-  intervalID : number;
+  private intervalID : number;
   hasTurned : boolean;
-  snake : Snake;
-  paused : boolean;
-  score : number;
+  private snake : Snake;
+  private paused : boolean;
+  private score : number;
 
-  static get speed(): number {
-    return Settings.game.speed;
-  }
-
-  static get DIM_X(): number {
-    return Settings.game.DIM_X;
-  }
-
-  static get DIM_Y(): number {
-    return Settings.game.DIM_Y;
-  }
-
-  static get FOOD_COLOR(): string {
-    return Settings.game.FOOD_COLOR;
-  }
+  static speed: number = Settings.game.speed;
+  static DIM_X: number = Settings.game.DIM_X
+  static DIM_Y: number = Settings.game.DIM_Y
+  static FOOD_COLOR: string = Settings.game.FOOD_COLOR;
 
   constructor(ctx) {
     this.ctx = ctx;
@@ -52,24 +41,24 @@ class Game {
     this.intervalID = window.setInterval(this.step.bind(this), interval);
   }
 
-  step(): void {
+  private step(): void {
     this.hasTurned = false;
     this.move();
     this.draw();
   }
 
-  move(): void {
+  private move(): void {
     this.snake.move();
   }
 
-  draw(): void {
+  private draw(): void {
     // Every frame, the canvas is cleared, then the snake and food are re-drawn.
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
     this.snake.draw(this.ctx);
     this.food.draw(this.ctx);
   }
 
-  stop(): void {
+  private stop(): void {
     clearInterval(this.intervalID);
   }
 
@@ -82,14 +71,14 @@ class Game {
     }
   }
 
-  restart(): void {
+  private restart(): void {
     this.snake = new Snake(this);
     this.food = this.placeFood();
     this.setScore(0);
     this.start();
   }
 
-  bindKeyHandlers(): void {
+  private bindKeyHandlers(): void {
     key("up", () => this.snake.turn("N"));
     key("down", () => this.snake.turn("S"));
     key("left", () => this.snake.turn("W"));
@@ -98,7 +87,7 @@ class Game {
     key("P", () => this.togglePause());
   }
 
-  togglePause(): void {
+  private togglePause(): void {
     if (this.paused){
       // Unpause
       this.start();
@@ -110,7 +99,7 @@ class Game {
     }
   }
 
-  placeFood(): Cell {
+  private placeFood(): Cell {
     // Continually pick a random position for food until one is found that the
     // snake does not contain.
     do {
@@ -122,7 +111,7 @@ class Game {
     return new Cell(pos, Game.FOOD_COLOR);
   }
 
-  setScore(score: number): void {
+  private setScore(score: number): void {
     this.score = score;
     $("#score").html(score + '');
   }
