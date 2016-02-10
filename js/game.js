@@ -32,7 +32,11 @@ class Game {
 
     this.snake = new Snake(this);
     this.food = this.placeFood();
-    this.setScore(0);
+    this.score = 0;
+    this.setScore(this.score);
+    this.intervalID = null;
+    this.hasTurned = false;
+    this.paused = false;
 
     this.bindKeyHandlers();
   }

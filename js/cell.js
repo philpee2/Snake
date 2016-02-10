@@ -6,7 +6,7 @@ const Settings = require('./settings');
 class Cell {
 
   static get DIMENSION() {
-    return 25;
+    return Settings.cell.DIMENSION;
   }
 
   static get DIR_DELTAS() {
@@ -26,10 +26,6 @@ class Cell {
     this.color = color;
   }
 
-  move(dir) {
-    this.pos = this.movedPosition(dir)
-  }
-
   // Returns the position the cell would be if it were to move in the given dir.
   // Does not actually move the cell.
   movedPosition(dir) {
@@ -43,10 +39,6 @@ class Cell {
     const dim = Cell.DIMENSION;
     ctx.fillStyle = this.color;
     ctx.fillRect(x, y, dim, dim);
-  }
-
-  getPos() {
-    return this.pos;
   }
 
   setPos(newPos) {
