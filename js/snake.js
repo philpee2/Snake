@@ -28,12 +28,12 @@ class Snake {
     // Storing the positions of the snake as a Set allows you to determine
     // if the snake contains a given position in constant time.
     // TODO: Move this into the Queue structure instead of the Snake object
-    this.positionsSet = new Set();
+    this.positionsSet = {};
 
     for (let pos of Snake.STARTING_POSITIONS) {
       let cell = new Cell(pos, Snake.COLOR);
       this.cells.push(cell);
-      this.positionsSet.add(pos);
+      this.positionsSet[pos] = true;
     }
   }
 
@@ -57,11 +57,11 @@ class Snake {
       game.gameOver();
     } else {
       const oldTail = this.cells.shift();
-      this.positionsSet.delete(oldTail.pos);
+      delete this.positionsSet[oldTail.pos];
       oldTail.setPos(newHeadPos);
       this.cells.push(oldTail);
     }
-    this.positionsSet.add(newHeadPos);
+    this.positionsSet[newHeadPos] = true;
   }
 
   head() {
@@ -88,7 +88,7 @@ class Snake {
   // Returns true if the snake contains a cell at pos.
   // Takes constant time thanks to the positions hash instance variable.
   contains(pos) {
-    return this.positionsSet.has(pos);
+    return this.positionsSet[pos];
   }
 
 }
