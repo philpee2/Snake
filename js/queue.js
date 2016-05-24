@@ -1,6 +1,12 @@
+// @flow
+
 // The ListNode structure that makes up the Queue.
 class ListNode {
-  constructor(item, next) {
+
+  item: any;
+  next: ?ListNode;
+
+  constructor(item : any, next : ?ListNode) {
     this.item = item;
     this.next = next;
   }
@@ -10,37 +16,41 @@ class ListNode {
 // Push, shift, firstItem, and lastItem are all O(1) operations.
 class Queue {
 
+  first: ?ListNode;
+  last: ?ListNode;
+  length: number;
+
   constructor() {
+    this.length = 0;
     this.first = null;
     this.last = null;
-    this.length = 0;
   }
 
-  isEmpty() {
+  isEmpty(): boolean {
     return this.length === 0;
   }
 
-  push(item) {
-    const newNode = new ListNode(item, null);
+  push(item: any): void {
+    const newNode: ListNode = new ListNode(item, null);
     if (this.isEmpty()) {
       this.first = newNode;
       this.last = newNode;
-    } else {
+    } else if (this.last != null && this.last.next != null) {
       this.last.next = newNode;
       this.last = newNode;
     }
     this.length++;
   }
 
-  shift() {
+  shift(): any {
     if (this.isEmpty()) {
       return;
     } else {
-      const firstItem = this.firstItem();
+      const firstItem : any = this.firstItem();
       if (this.length === 1) {
         this.first = null;
         this.last = null;
-      } else {
+      } else if (this.first != null && this.first.next != null) {
         this.first = this.first.next;
       }
       this.length--;
@@ -48,25 +58,38 @@ class Queue {
     }
   }
 
-  forEach(fn) {
-    if (this.isEmpty()) {
+  forEach(fn: Function): void {
+    if (this.isEmpty() || this.first == null || this.last == null) {
       return;
     }
 
-    let curr = this.first;
-    while (curr.next !== null) {
+    let curr: ListNode = this.first;
+    while (curr.next != null) {
       fn(curr.item);
-      curr = curr.next;
+      if (curr.next == null) {
+        break;
+      }
     }
-    fn(curr.item);
+
+    if (curr.next != null) {
+      fn(curr.next.item);
+    }
   }
 
-  firstItem() {
-    return this.first.item;
+  firstItem(): any {
+    if (this.first == null) {
+      return null;
+    } else {
+      return this.first.item;
+    }
   }
 
-  lastItem() {
-    return this.last.item;
+  lastItem(): any {
+    if (this.last == null) {
+      return null;
+    } else {
+      return this.last.item;
+    }
   }
 
 }

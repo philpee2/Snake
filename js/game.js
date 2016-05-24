@@ -1,3 +1,5 @@
+// @flow
+
 import Settings from './settings';
 import Snake from './snake';
 import Cell from './cell';
@@ -7,12 +9,22 @@ import $ from 'jquery';
 
 class Game {
 
-  static speed = Settings.game.speed;
-  static DIM_X = Settings.game.DIM_X;
-  static DIM_Y = Settings.game.DIM_Y;
-  static FOOD_COLOR = Settings.game.FOOD_COLOR;
+  ctx: CanvasRenderingContext2D;
+  WIDTH: number;
+  HEIGHT: number;
+  snake: Snake;
+  food: Cell;
+  score: number;
+  intervalID: ?number;
+  hasTurned: boolean;
+  paused: boolean;
 
-  constructor(ctx) {
+  static speed: number = Settings.game.speed;
+  static DIM_X: number = Settings.game.DIM_X;
+  static DIM_Y: number = Settings.game.DIM_Y;
+  static FOOD_COLOR: string = Settings.game.FOOD_COLOR;
+
+  constructor(ctx: CanvasRenderingContext2D): void {
     this.ctx = ctx;
 
     // Constants representing the number of rows and columns
@@ -30,50 +42,52 @@ class Game {
     this.bindKeyHandlers();
   }
 
-  start() {
+  start(): void {
     // Begin running the 'step' logic 10 times per second.
-    const interval = Math.floor(1000 / Game.speed);
+    const interval: number = Math.floor(1000 / Game.speed);
     this.intervalID = window.setInterval(this.step.bind(this), interval);
   }
 
-  step() {
+  step(): void {
     this.hasTurned = false;
     this.move();
     this.draw();
   }
 
-  move() {
+  move(): void {
     this.snake.move();
   }
 
-  draw() {
+  draw(): void {
     // Every frame, the canvas is cleared, then the snake and food are re-drawn.
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
     this.snake.draw(this.ctx);
     this.food.draw(this.ctx);
   }
 
-  stop() {
-    clearInterval(this.intervalID);
+  stop(): void {
+    if (this.intervalID != null) {
+      clearInterval(this.intervalID);
+    }
   }
 
-  gameOver() {
+  gameOver(): void {
     this.stop();
 
-    const again = confirm(`Game Over! Your score is ${this.score}. Do you want to play again?`);
+    const again: boolean = confirm(`Game Over! Your score is ${this.score}. Do you want to play again?`);
     if (again) {
       this.restart();
     }
   }
 
-  restart() {
+  restart(): void {
     this.snake = new Snake(this);
     this.food = this.placeFood();
     this.setScore(0);
     this.start();
   }
 
-  bindKeyHandlers() {
+  bindKeyHandlers(): void {
     key("up", () => this.snake.turn("N"));
     key("down", () => this.snake.turn("S"));
     key("left", () => this.snake.turn("W"));
@@ -82,7 +96,7 @@ class Game {
     key("P", () => this.togglePause());
   }
 
-  togglePause() {
+  togglePause(): void {
     if (this.paused) {
       // Unpause
       this.start();
@@ -94,20 +108,20 @@ class Game {
     }
   }
 
-  placeFood() {
+  placeFood(): Cell {
     // Continually pick a random position for food until one is found that the
     // snake does not contain.
-    let pos;
+    let pos: [number, number];
     do {
-      let randX = random(this.WIDTH - 1);
-      let randY = random(this.HEIGHT - 1);
+      let randX: number = random(this.WIDTH - 1);
+      let randY: number = random(this.HEIGHT - 1);
       pos = [randX, randY];
     } while (this.snake.contains(pos))
 
     return new Cell(pos, Game.FOOD_COLOR);
   }
 
-  setScore(score) {
+  setScore(score: number): void {
     this.score = score;
     $("#score").html(score);
   }
@@ -119,8 +133,8 @@ class Game {
     this.setScore(newScore);
   }
 
-  outOfBounds(pos) {
-    const [x, y] = pos;
+  outOfBounds(pos: [number, number]): boolean {
+    const [x, y]: [number, number] = pos;
     return (x < 0) || (x >= this.WIDTH) || (y < 0) || (y >= this.HEIGHT);
   }
 }

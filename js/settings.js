@@ -1,3 +1,5 @@
+// @flow
+
 // Settings stores game constants. This makes them easy to change in one place,
 // and makes them accessible to all other objects.
 const Settings = {
