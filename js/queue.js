@@ -53,7 +53,7 @@ class Queue {
       return;
     }
 
-    var curr = this.first;
+    let curr = this.first;
     while (curr.next !== null) {
       fn(curr.item);
       curr = curr.next;

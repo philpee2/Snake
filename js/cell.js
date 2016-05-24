@@ -18,7 +18,7 @@ class Cell {
     const [x, y] = pos;
     const pixelX = x * Cell.DIMENSION;
     const pixelY = Settings.game.DIM_Y - ((y + 1) * Cell.DIMENSION);
-    return [pixelX, pixelY]
+    return [pixelX, pixelY];
   }
 
   constructor(pos, color) {

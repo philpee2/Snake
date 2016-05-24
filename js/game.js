@@ -1,7 +1,7 @@
 import Settings from './settings';
 import Snake from './snake';
 import Cell from './cell';
-import _ from 'lodash';
+import { random } from 'lodash';
 import key from 'keymaster';
 import $ from 'jquery';
 
@@ -43,7 +43,7 @@ class Game {
 
   start() {
     // Begin running the 'step' logic 10 times per second.
-    const interval = Math.floor(1000/Game.speed);
+    const interval = Math.floor(1000 / Game.speed);
     this.intervalID = window.setInterval(this.step.bind(this), interval);
   }
 
@@ -94,7 +94,7 @@ class Game {
   }
 
   togglePause() {
-    if (this.paused){
+    if (this.paused) {
       // Unpause
       this.start();
       this.paused = false;
@@ -108,10 +108,11 @@ class Game {
   placeFood() {
     // Continually pick a random position for food until one is found that the
     // snake does not contain.
+    let pos;
     do {
-      let randX = _.random(this.WIDTH - 1);
-      let randY = _.random(this.HEIGHT - 1);
-      var pos = [randX, randY]
+      let randX = random(this.WIDTH - 1);
+      let randY = random(this.HEIGHT - 1);
+      pos = [randX, randY];
     } while (this.snake.contains(pos))
 
     return new Cell(pos, Game.FOOD_COLOR);

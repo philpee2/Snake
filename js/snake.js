@@ -1,7 +1,7 @@
 import Settings from './settings';
 import Cell from './cell';
 import Queue from './queue';
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 
 class Snake {
 
@@ -18,7 +18,7 @@ class Snake {
   }
 
   constructor(game) {
-    this.dir = "N"; // Direction, can be "N", "E", "S", "W"
+    this.dir = 'N'; // Direction, can be "N", "E", "S", "W"
 
     // The snake stores its cells in a queue. This allows the tail to be
     // shifted off and a new head to be pushed on in constant time.
@@ -48,7 +48,7 @@ class Snake {
     // The position that the new head of the snake will be.
     const newHeadPos = head.movedPosition(this.dir);
 
-    if (_.isEqual(newHeadPos, game.food.pos)) {
+    if (isEqual(newHeadPos, game.food.pos)) {
       // If the snake moves over food, create a new cell, rather than shifting the tail.
       this.cells.push(new Cell(newHeadPos, Snake.COLOR));
       this.game.foodEaten();
@@ -72,17 +72,18 @@ class Snake {
   turn(newDir) {
     const game = this.game;
     // The snake can only turn once per step
-    if (!game.hasTurned)
+    if (!game.hasTurned) {
       // The snake cannot turn into the direction opposite of the one it is
       // currently moving in.
       if (newDir !== Snake.OPPOSITE_DIRECTIONS[this.dir]) {
         this.dir = newDir;
         game.hasTurned = true;
       }
+    }
   }
 
   draw(ctx) {
-    this.cells.forEach( (cell) => cell.draw(ctx));
+    this.cells.forEach(cell => cell.draw(ctx));
   }
 
   // Returns true if the snake contains a cell at pos.

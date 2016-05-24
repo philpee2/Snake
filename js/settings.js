@@ -7,19 +7,19 @@ const Settings = {
     DIM_Y: 500,
     WIDTH: 20,
     HEIGHT: 20,
-    FOOD_COLOR: "green"
+    FOOD_COLOR: 'green',
   },
 
   snake: {
-    COLOR: "red",
+    COLOR: 'red',
     STARTING_POSITIONS: [[10, 0], [10, 1], [10, 2]],
 
     OPPOSITE_DIRECTIONS: {
-      N: "S",
-      S: "N",
-      E: "W",
-      W: "E"
-    }
+      N: 'S',
+      S: 'N',
+      E: 'W',
+      W: 'E',
+    },
   },
 
   cell: {
@@ -28,9 +28,9 @@ const Settings = {
         N: [0, 1],
         E: [1, 0],
         S: [0, -1],
-        W: [-1, 0]
-    }
-  }
+        W: [-1, 0],
+    },
+  },
 };
 
 export default Settings;
