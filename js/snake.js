@@ -5,17 +5,9 @@ import { isEqual } from 'lodash';
 
 class Snake {
 
-  static get COLOR() {
-    return Settings.snake.COLOR;
-  }
-
-  static get STARTING_POSITIONS() {
-    return Settings.snake.STARTING_POSITIONS;
-  }
-
-  static get OPPOSITE_DIRECTIONS() {
-    return Settings.snake.OPPOSITE_DIRECTIONS;
-  }
+  static COLOR = Settings.snake.COLOR;
+  static STARTING_POSITIONS = Settings.snake.STARTING_POSITIONS;
+  static OPPOSITE_DIRECTIONS = Settings.snake.OPPOSITE_DIRECTIONS;
 
   constructor(game) {
     this.dir = 'N'; // Direction, can be "N", "E", "S", "W"

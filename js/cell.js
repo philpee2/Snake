@@ -5,13 +5,8 @@ import Settings from './settings';
 // position and their color.
 class Cell {
 
-  static get DIMENSION() {
-    return Settings.cell.DIMENSION;
-  }
-
-  static get DIR_DELTAS() {
-    return Settings.cell.DIR_DELTAS;
-  }
+  static DIMENSION = Settings.cell.DIMENSION;
+  static DIR_DELTAS = Settings.cell.DIR_DELTAS;
 
   // Converts an in-game position to a pixel position on the canvas.
   static mapToScreen(pos) {

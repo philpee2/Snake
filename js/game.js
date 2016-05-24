@@ -7,21 +7,10 @@ import $ from 'jquery';
 
 class Game {
 
-  static get speed() {
-    return Settings.game.speed;
-  }
-
-  static get DIM_X() {
-    return Settings.game.DIM_X;
-  }
-
-  static get DIM_Y() {
-    return Settings.game.DIM_Y;
-  }
-
-  static get FOOD_COLOR() {
-    return Settings.game.FOOD_COLOR;
-  }
+  static speed = Settings.game.speed;
+  static DIM_X = Settings.game.DIM_X;
+  static DIM_Y = Settings.game.DIM_Y;
+  static FOOD_COLOR = Settings.game.FOOD_COLOR;
 
   constructor(ctx) {
     this.ctx = ctx;
