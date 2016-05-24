@@ -1,4 +1,4 @@
-const Settings = require('./settings');
+import Settings from './settings';
 
 // The Cell class represents an individual cell on the board. These cells can
 // represent the segments of the snake, or a piece of food. Cells store their
@@ -46,4 +46,4 @@ class Cell {
   }
 }
 
-module.exports = Cell;
+export default Cell;

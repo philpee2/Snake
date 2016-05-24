@@ -1,9 +1,9 @@
-const Settings = require('./settings'),
-  Snake = require('./snake'),
-  Cell = require('./cell'),
-  _ = require('lodash'),
-  key = require('keymaster'),
-  $ = require('jquery');
+import Settings from './settings';
+import Snake from './snake';
+import Cell from './cell';
+import _ from 'lodash';
+import key from 'keymaster';
+import $ from 'jquery';
 
 class Game {
 
@@ -135,4 +135,4 @@ class Game {
   }
 }
 
-module.exports = Game;
+export default Game;

@@ -33,4 +33,4 @@ const Settings = {
   }
 };
 
-module.exports = Settings;
+export default Settings;

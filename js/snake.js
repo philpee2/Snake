@@ -1,7 +1,7 @@
-const Settings = require('./settings'),
-  Cell = require('./cell'),
-  Queue = require('./queue'),
-  _ = require('lodash');
+import Settings from './settings';
+import Cell from './cell';
+import Queue from './queue';
+import _ from 'lodash';
 
 class Snake {
 
@@ -93,4 +93,4 @@ class Snake {
 
 }
 
-module.exports = Snake;
+export default Snake;

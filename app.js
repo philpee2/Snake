@@ -1,5 +1,5 @@
-const $ = require('jquery'),
-  Game = require('./js/game');
+import $ from 'jquery';
+import Game from './js/game';
 
 $(function() {
   const game = document.getElementById("game");
